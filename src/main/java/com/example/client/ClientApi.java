@@ -43,12 +43,12 @@ public abstract class ClientApi<T> {
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
 
-        long tempoInicial = System.currentTimeMillis();
+
         try (Response response = new OkHttpClient().newCall(request).execute()) {
 
             String resposta = Objects.requireNonNull(response.body()).string();
             ResponseDTO<T> responseDTO = this.gsonBuilder.create().fromJson(resposta, this.collectionType);
-            this.calcularTempoRequisicao(responseDTO, tempoInicial);
+          
 
             return responseDTO;
         }
@@ -63,11 +63,5 @@ public abstract class ClientApi<T> {
         return urlBuilder;
     }
 
-    private void calcularTempoRequisicao(ResponseDTO<T> responseDTO, long tempoInicial) {
-        long tempoFinal = System.currentTimeMillis();
 
-        responseDTO.setIniciado(DateTimeHelper.milisecondsToDateTime(tempoInicial));
-        responseDTO.setFinalizado(DateTimeHelper.milisecondsToDateTime(tempoFinal));
-        responseDTO.setTempoResposta(tempoFinal - tempoInicial);
-    }
 }
