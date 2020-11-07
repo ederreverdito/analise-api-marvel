@@ -1,6 +1,6 @@
 package com.example.model;
 
-import com.example.client.dto.CollectionDTO;
+
 import com.example.client.dto.ModelDTO;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,6 +10,8 @@ public class Personagem extends ModelDTO {
 
     @SerializedName("description")
     private String descricao;
+    
+    private String imagem;
 
 
 
@@ -26,4 +28,8 @@ public class Personagem extends ModelDTO {
     }
 
 
+    public String getImagem() {
+        return imagem;
+    }
+    
 }

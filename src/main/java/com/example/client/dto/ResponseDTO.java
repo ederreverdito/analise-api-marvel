@@ -1,6 +1,5 @@
 package com.example.client.dto;
 
-import java.time.LocalDateTime;
 
 public class ResponseDTO<T> {
 
