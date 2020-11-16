@@ -60,77 +60,104 @@ public class Main {
         try {
 
             
-         String nomePesquisa = JOptionPane.showInputDialog("Digite o nome do personagem");
+         String nomePesquisa = JOptionPane.showInputDialog("Digite o nome do personagem");    
          ResponseDTO<Personagem> resposta = new PersonagemClient().buscar(nomePesquisa);
-         String texto =   new Gson().toJson(resposta.getData().getResults().get(0));
-         
-
-         JSONObject obj = new JSONObject(texto);
-         
-         if (obj.has("name")) {
-        	 nom = obj.getString("name");
-        	    System.out.println("Nome = " + obj.getString("name")); //
-        	} else {
-        	    System.out.println("não possui nome");
-        	}
          
          
-         if (obj.has("description")) {
-        	 desc = obj.getString("description");
-     	    System.out.println("Descrição = " + obj.getString("description"));
-     	} else {
-     	    System.out.println("não possui descrição");
-     	}
-                
-         JSONObject foto = obj.getJSONObject("thumbnail");
-         for (String chave : foto.keySet()) {	 
-        	 sb.append(foto.get(chave));
-        	 if(chave.equals("path"))
-        	 sb.append("."); 
+         
+         if (resposta.getData().getResults().size()==0) {
+        	 
+             System.out.println("Quantidade de retorno: "+resposta.getData().getResults().size()+"\nNão há personagem com esse nome!");
+             System.exit(1);
+             
+        	 
+         }else 
+         
+         {
+        	 
+        	 
+        	  System.out.println("Quantidade de retorno: "+resposta.getData().getResults().size());
+        	 
+        	 
          }
+
+        
+        	  String texto =   new Gson().toJson(resposta.getData().getResults().get(0));
          
-         System.out.println(sb);
-           
+   
+         
+        	  System.out.println("Resposta em formato Json = "+texto);
+         
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-
-        URL urlImg = new URL(sb.toString());
-        ImageIcon imgIcon = new ImageIcon(urlImg);
-        
-        Image image = imgIcon.getImage();
-        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
-        imgIcon = new ImageIcon(newimg); 
-        
-       
-        
-        
-        // faz o preload da imagem
-        while(imgIcon.getImageLoadStatus() == MediaTracker.LOADING); 
-
-        // injeta o icone no label
-        lblImg.setIcon(imgIcon);
-        lblNom.setText(nom);
-        textDesc.setText(desc);
-        
-        
-        Font boldFontNom = new Font( "Serif", Font.BOLD, 28 );
-        lblNom.setFont(boldFontNom);
-
-
-        
-        // adicina o label no panel
-        p.add(lblNom);
-        p.add(lblImg);
-        p.add(textDesc);
-
-        frame.getContentPane().add(p);
-
-        // abre a janela (frame)
-        frame.setVisible(true);  
+	         JSONObject obj = new JSONObject(texto);
+	         
+	         if (obj.has("name")) {
+	        	 nom = obj.getString("name");
+	        	    System.out.println("Nome = " + obj.getString("name")); //
+	        	} else {
+	        	    System.out.println("não possui nome");
+	        	}
+	         
+	         
+	         if (obj.has("description")) {
+	        	 desc = obj.getString("description");
+	     	    System.out.println("Descrição = " + obj.getString("description"));
+	     	} else {
+	     	    System.out.println("não possui descrição");
+	     	}
+	                
+	         JSONObject foto = obj.getJSONObject("thumbnail");
+	         for (String chave : foto.keySet()) {	 
+	        	 sb.append(foto.get(chave));
+	        	 if(chave.equals("path"))
+	        	 sb.append("."); 
+	         }
+	         
+	         System.out.println("Imagem = "+sb);
+	           
+	
+	
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        
+	        
+	
+	        URL urlImg = new URL(sb.toString());
+	        ImageIcon imgIcon = new ImageIcon(urlImg);
+	        
+	        Image image = imgIcon.getImage();
+	        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+	        imgIcon = new ImageIcon(newimg); 
+	        
+	       
+	        
+	        
+	        // faz o preload da imagem
+	        while(imgIcon.getImageLoadStatus() == MediaTracker.LOADING); 
+	
+	        // injeta o icone no label
+	        lblImg.setIcon(imgIcon);
+	        lblNom.setText(nom);
+	        textDesc.setText(desc);
+	        
+	        
+	        Font boldFontNom = new Font( "Serif", Font.BOLD, 28 );
+	        lblNom.setFont(boldFontNom);
+	
+	
+	        
+	        // adicina o label no panel
+	        p.add(lblNom);
+	        p.add(lblImg);
+	        p.add(textDesc);
+	
+	        frame.getContentPane().add(p);
+	
+	        // abre a janela (frame)
+	        frame.setVisible(true);  
+            
 
     }
 
