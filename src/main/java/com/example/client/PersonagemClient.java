@@ -15,7 +15,9 @@ public class PersonagemClient extends ClientApi<Personagem> {
     }
 
     public ResponseDTO<Personagem> buscar(String nome) throws IOException, NoSuchAlgorithmException {
-        Map<String, String> params = new HashMap<>();
+        
+    	Map<String, String> params = new HashMap<>();
+      
         params.put("name", nome);
 
         return super.buscar(Collections.singletonList("characters"), params);

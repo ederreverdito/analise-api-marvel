@@ -1,6 +1,6 @@
 package com.example.model;
 
-import com.example.client.dto.CollectionDTO;
+
 import com.example.client.dto.ModelDTO;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,15 +10,10 @@ public class Personagem extends ModelDTO {
 
     @SerializedName("description")
     private String descricao;
+    
+    private String imagem;
 
-    @SerializedName(value = "comics")
-    private CollectionDTO<Quadrinho> quadrinhos;
 
-    @SerializedName(value = "stories")
-    private CollectionDTO<Historia> historias;
-
-    @SerializedName(value = "series")
-    private CollectionDTO<Serie> series;
 
     public String getId() {
         return id;
@@ -32,15 +27,9 @@ public class Personagem extends ModelDTO {
         return descricao;
     }
 
-    public CollectionDTO<Quadrinho> getQuadrinhos() {
-        return quadrinhos;
-    }
 
-    public CollectionDTO<Historia> getHistorias() {
-        return historias;
+    public String getImagem() {
+        return imagem;
     }
-
-    public CollectionDTO<Serie> getSeries() {
-        return series;
-    }
+    
 }
